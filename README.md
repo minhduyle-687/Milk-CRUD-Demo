@@ -16,5 +16,5 @@ Project is created with:
 * Spring boot version: 3.2.4
 * Flyway
 * Mybatis
-* SpringDoc OpenAPI
+* SpringDoc OpenAPI (http://localhost:8080/swagger-ui/index.html)
 * MySQL
