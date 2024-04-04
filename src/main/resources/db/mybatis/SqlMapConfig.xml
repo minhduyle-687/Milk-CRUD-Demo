@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="defaultStatementTimeout" value="30"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="defaultEnumTypeHandler" value="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias = "HangSua" type = "com.example.demoCRUD.entity.HangSua"/>
+        <typeAlias alias = "LoaiSua" type = "com.example.demoCRUD.entity.LoaiSua"/>
+        <typeAlias alias = "Sua" type = "com.example.demoCRUD.entity.Sua"/>
+        <typeAlias alias = "SuaDto" type = "com.example.demoCRUD.dto.SuaDto"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/demo_crud_api"/>
+                <property name="username" value="root"/>
+                <property name="password" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="db/mybatis/mappers/HangSuaMapper.xml"/>
+        <mapper resource="db/mybatis/mappers/LoaiSuaMapper.xml"/>
+        <mapper resource="db/mybatis/mappers/SuaMapper.xml"/>
+    </mappers>
+</configuration>

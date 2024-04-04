@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoCRUD.repository.HangSuaRepository">
+
+    <resultMap id="hangSuaResultMap" type="HangSua" autoMapping="true">
+        <id property="maHangSua" column="Ma_hang_sua"/>
+        <collection property="suas" ofType="Sua">
+            <id property="maSua" column="Ma_sua"/>
+            <result property="tenSua" column="Ten_sua"/>
+            <result property="trongLuong" column="Trong_luong"/>
+            <result property="donGia" column="Don_gia"/>
+            <result property="tpDinhDuong" column="Tp_dinh_duong"/>
+            <result property="loiIch" column="Loi_ich"/>
+            <result property="hinh" column="Hinh"/>
+            <association property="loaiSua" javaType="LoaiSua">
+                <id property="maLoaiSua" column="Ma_loai_sua"/>
+                <result property="tenLoaiSua" column="Ten_loai_sua"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="getAllHangSua" resultMap="hangSuaResultMap">
+        SELECT hs.Ma_hang_sua, hs.Ten_hang_sua, hs.Dia_chi, hs.Dien_thoai, hs.Email, s.Ma_sua,
+        s.Ten_sua, ls.Ten_loai_sua, s.Trong_luong, s.Don_gia, s.Tp_dinh_duong, s.Loi_ich, s.Hinh
+        FROM hang_sua hs
+        LEFT OUTER JOIN sua s ON hs.Ma_hang_sua=s.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+    </select>
+
+    <select id="findHangSuaByMaHangSua" resultMap="hangSuaResultMap">
+        SELECT hs.Ma_hang_sua, hs.Ten_hang_sua, hs.Dia_chi, hs.Dien_thoai, hs.Email, s.Ma_sua,
+        s.Ten_sua, ls.Ten_loai_sua, s.Trong_luong, s.Don_gia, s.Tp_dinh_duong, s.Loi_ich, s.Hinh
+        FROM hang_sua hs
+        LEFT OUTER JOIN sua s ON hs.Ma_hang_sua=s.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+        WHERE hs.Ma_hang_sua = #{maHangSua}
+        LIMIT 1
+    </select>
+
+    <select id="searchHangSuaByTenHangSua" resultMap="hangSuaResultMap">
+        SELECT hs.Ma_hang_sua, hs.Ten_hang_sua, hs.Dia_chi, hs.Dien_thoai, hs.Email, s.Ma_sua,
+        s.Ten_sua, ls.Ten_loai_sua, s.Trong_luong, s.Don_gia, s.Tp_dinh_duong, s.Loi_ich, s.Hinh
+        FROM hang_sua hs
+        LEFT OUTER JOIN sua s ON hs.Ma_hang_sua=s.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+        WHERE hs.Ten_hang_sua LIKE '%' #{tenHangSua} '%'
+    </select>
+
+    <insert id="createHangSua" parameterType="HangSua">
+        INSERT INTO hang_sua (Ma_hang_sua, Ten_hang_sua, Dia_chi, Dien_thoai, Email)
+        VALUES (#{maHangSua}, #{tenHangSua}, #{diaChi}, #{dienThoai}, #{email})
+    </insert>
+
+    <update id="updateHangSua" parameterType="HangSua">
+        UPDATE hang_sua
+        SET Ten_hang_sua = #{tenHangSua},
+        Dia_chi = #{diaChi},
+        Dien_thoai = #{dienThoai},
+        Email = #{email}
+        WHERE Ma_hang_sua = #{maHangSua}
+    </update>
+
+    <delete id="deleteHangSua" parameterType="HangSua">
+        DELETE FROM hang_sua
+        WHERE Ma_hang_sua = #{maHangSua,jdbcType=CHAR}
+    </delete>
+
+</mapper>

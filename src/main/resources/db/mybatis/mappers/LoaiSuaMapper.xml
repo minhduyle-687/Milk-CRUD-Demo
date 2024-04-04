@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoCRUD.repository.LoaiSuaRepository">
+
+    <resultMap id="loaiSuaResultMap" type="LoaiSua" autoMapping="true">
+        <id property="maLoaiSua" column="Ma_loai_sua"/>
+        <collection property="suas" ofType="Sua">
+            <id property="maSua" column="Ma_sua"/>
+            <result property="tenSua" column="Ten_sua"/>
+            <result property="trongLuong" column="Trong_luong"/>
+            <result property="donGia" column="Don_gia"/>
+            <result property="tpDinhDuong" column="Tp_dinh_duong"/>
+            <result property="loiIch" column="Loi_ich"/>
+            <result property="hinh" column="Hinh"/>
+            <association property="hangSua" javaType="HangSua">
+                <id property="maHangSua" column="Ma_hang_sua"/>
+                <result property="tenHangSua" column="Ten_hang_sua"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="getAllLoaiSua" resultMap="loaiSuaResultMap">
+        SELECT ls.Ma_loai_sua, ls.Ten_loai_sua, s.Ma_sua, s.Ten_sua, hs.Ten_hang_sua,
+        s.Trong_luong, s.Don_gia, s.Tp_dinh_duong, s.Loi_ich, s.Hinh
+        FROM loai_sua ls
+        LEFT OUTER JOIN sua s ON ls.Ma_loai_sua=s.Ma_loai_sua
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+    </select>
+
+    <select id="findLoaiSuaByMaLoaiSua" resultMap="loaiSuaResultMap">
+        SELECT ls.Ma_loai_sua, ls.Ten_loai_sua, s.Ma_sua, s.Ten_sua, hs.Ten_hang_sua,
+        s.Trong_luong, s.Don_gia, s.Tp_dinh_duong, s.Loi_ich, s.Hinh
+        FROM loai_sua ls
+        LEFT OUTER JOIN sua s ON ls.Ma_loai_sua=s.Ma_loai_sua
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+        WHERE ls.Ma_loai_sua = #{maLoaiSua}
+        LIMIT 1
+    </select>
+
+    <select id="searchLoaiSuaByTenLoaiSua" resultMap="loaiSuaResultMap">
+        SELECT ls.Ma_loai_sua, ls.Ten_loai_sua, s.Ma_sua, s.Ten_sua, hs.Ten_hang_sua,
+        s.Trong_luong, s.Don_gia, s.Tp_dinh_duong, s.Loi_ich, s.Hinh
+        FROM loai_sua ls
+        LEFT OUTER JOIN sua s ON ls.Ma_loai_sua=s.Ma_loai_sua
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+        WHERE ls.Ten_loai_sua LIKE '%' #{tenLoaiSua} '%'
+    </select>
+
+    <insert id="createLoaiSua" parameterType="LoaiSua">
+        INSERT INTO loai_sua (Ma_loai_sua, Ten_loai_sua)
+        VALUES (#{maLoaiSua}, #{tenLoaiSua})
+    </insert>
+
+    <update id="updateLoaiSua" parameterType="LoaiSua">
+        UPDATE loai_sua
+        SET Ten_loai_sua = #{tenLoaiSua}
+        WHERE Ma_loai_sua = #{maLoaiSua}
+    </update>
+
+    <delete id="deleteLoaiSua" parameterType="LoaiSua">
+        DELETE FROM loai_sua
+        WHERE Ma_loai_sua = #{maLoaiSua,jdbcType=CHAR}
+    </delete>
+
+</mapper>

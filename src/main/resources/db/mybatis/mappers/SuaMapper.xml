@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoCRUD.repository.SuaRepository">
+
+<!--    Nested Select for Association-->
+
+    <!--    <resultMap id="suaResultMap" type="Sua" autoMapping="true">-->
+<!--        <id property="maSua" column="Ma_sua"/>-->
+<!--        <association property="hangSua" column="Ma_hang_sua" javaType="HangSua"-->
+<!--                     select="findHangSua">-->
+<!--            <id property="maHangSua" column="Ma_hang_sua"/>-->
+<!--        </association>-->
+<!--        <association property="loaiSua" column="Ma_loai_sua" javaType="LoaiSua"-->
+<!--                     select="findLoaiSua">-->
+<!--            <id property="maLoaiSua" column="Ma_loai_sua"/>-->
+<!--        </association>-->
+<!--    </resultMap>-->
+
+<!--    <select id="findHangSua" resultType="HangSua">-->
+<!--        SELECT *-->
+<!--        FROM hang_sua-->
+<!--        WHERE Ma_hang_sua = #{maHangSua}-->
+<!--        LIMIT 1-->
+<!--    </select>-->
+
+<!--    <select id="findLoaiSua" resultType="LoaiSua">-->
+<!--        SELECT *-->
+<!--        FROM loai_sua-->
+<!--        WHERE Ma_loai_sua = #{maLoaiSua}-->
+<!--        LIMIT 1-->
+<!--    </select>-->
+
+<!--    Nested Results for Association-->
+
+    <resultMap id="suaResultMap" type="Sua" autoMapping="true">
+        <id property="maSua" column="Ma_sua"/>
+        <association property="hangSua" javaType="HangSua">
+            <id property="maHangSua" column="maHangSua"/>
+            <result property="tenHangSua" column="tenHangSua"/>
+            <result property="diaChi" column="diaChi"/>
+            <result property="dienThoai" column="dienThoai"/>
+            <result property="email" column="email"/>
+        </association>
+        <association property="loaiSua" javaType="LoaiSua">
+            <id property="maLoaiSua" column="maLoaiSua"/>
+            <result property="tenLoaiSua" column="tenLoaiSua"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllSua" resultMap="suaResultMap">
+        SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
+        hs.Dia_chi as diaChi,
+        hs.Dien_thoai as dienThoai,
+        hs.Email as email, ls.Ma_loai_sua as maLoaiSua, ls.Ten_loai_sua as tenLoaiSua,
+        s.Trong_luong,
+        s.Don_gia,
+        s.Tp_dinh_duong,
+        s.Loi_ich, s.Hinh
+        FROM sua s
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+    </select>
+
+    <select id="findSuaByMaSua" resultMap="suaResultMap">
+        SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
+        hs.Dia_chi as diaChi,
+        hs.Dien_thoai as dienThoai,
+        hs.Email as email, ls.Ma_loai_sua as maLoaiSua, ls.Ten_loai_sua as tenLoaiSua,
+        s.Trong_luong,
+        s.Don_gia,
+        s.Tp_dinh_duong,
+        s.Loi_ich, s.Hinh
+        FROM sua s
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+        WHERE s.Ma_sua = #{maSua}
+        LIMIT 1
+    </select>
+
+    <select id="searchSuaByTenSua" resultMap="suaResultMap">
+        SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
+        hs.Dia_chi as diaChi,
+        hs.Dien_thoai as dienThoai,
+        hs.Email as email, ls.Ma_loai_sua as maLoaiSua, ls.Ten_loai_sua as tenLoaiSua,
+        s.Trong_luong,
+        s.Don_gia,
+        s.Tp_dinh_duong,
+        s.Loi_ich, s.Hinh
+        FROM sua s
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+        WHERE s.Ten_sua LIKE '%' #{tenSua} '%'
+    </select>
+
+    <select id="searchSuaByMaHangSua" resultMap="suaResultMap">
+        SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
+        hs.Dia_chi as diaChi,
+        hs.Dien_thoai as dienThoai,
+        hs.Email as email, ls.Ma_loai_sua as maLoaiSua, ls.Ten_loai_sua as tenLoaiSua,
+        s.Trong_luong,
+        s.Don_gia,
+        s.Tp_dinh_duong,
+        s.Loi_ich, s.Hinh
+        FROM sua s
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+        WHERE hs.Ma_hang_sua = #{maHangSua}
+    </select>
+
+    <select id="searchSuaByMaLoaiSua" resultMap="suaResultMap">
+        SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
+        hs.Dia_chi as diaChi,
+        hs.Dien_thoai as dienThoai,
+        hs.Email as email, ls.Ma_loai_sua as maLoaiSua, ls.Ten_loai_sua as tenLoaiSua,
+        s.Trong_luong,
+        s.Don_gia,
+        s.Tp_dinh_duong,
+        s.Loi_ich, s.Hinh
+        FROM sua s
+        LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
+        LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
+        WHERE ls.Ma_loai_sua = #{maLoaiSua}
+    </select>
+
+    <insert id="createSua" parameterType="SuaDto">
+        INSERT INTO sua (Ma_sua, Ten_sua, Ma_hang_sua, Ma_loai_sua, Trong_luong, Don_gia,
+        TP_Dinh_Duong, Loi_ich, Hinh)
+        VALUES (#{maSua}, #{tenSua}, #{maHangSua,jdbcType=VARCHAR}, #{maLoaiSua,jdbcType=VARCHAR},
+        #{trongLuong}, #{donGia}, #{tpDinhDuong}, #{loiIch}, #{hinh})
+    </insert>
+
+    <update id="updateSua" parameterType="SuaDto">
+        UPDATE sua
+        SET Ten_sua = #{tenSua},
+        Ma_hang_sua = #{maHangSua,jdbcType=VARCHAR},
+        Ma_loai_sua = #{maLoaiSua,jdbcType=VARCHAR},
+        Trong_luong = #{trongLuong},
+        Don_gia = #{donGia},
+        TP_Dinh_Duong = #{tpDinhDuong},
+        Loi_ich = #{loiIch},
+        Hinh = #{hinh}
+        WHERE Ma_sua = #{maSua}
+    </update>
+
+    <delete id="deleteSua" parameterType="Sua">
+        DELETE FROM sua
+        WHERE Ma_sua = #{maSua,jdbcType=CHAR}
+    </delete>
+
+</mapper>

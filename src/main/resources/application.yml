@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo_crud_api?autoreconnect=true
+    username: root
+    password:
+    DataSourceInitializationMode: always
+    data: classpath:db/sql/
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    baselineVersion: "0"
+    url: jdbc:mysql://localhost:3306/demo_crud_api
+    user: root
+    password:
+  jackson:
+    default-property-inclusion: non-empty
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
