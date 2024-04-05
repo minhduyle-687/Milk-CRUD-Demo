@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/loaisua")
-public class LoaiSuaController {
+@RequestMapping("/milktypes")
+public class MilkTypeController {
     @Autowired
     private LoaiSuaService loaiSuaService;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public ResponseEntity<?> getAllLoaiSua() {
         return ResponseEntity.status(HttpStatus.OK).body(loaiSuaService.getAllLoaiSua());
     }
 
-    @GetMapping("/find/{maLoaiSua}")
-    public ResponseEntity<?> findLoaiSuaByMaLoaiSua(@PathVariable("maLoaiSua") String maLoaiSua) {
-        Optional<LoaiSua> optionalLoaiSua = loaiSuaService.findLoaiSuaByMaLoaiSua(maLoaiSua);
+    @GetMapping("/find/{milkTypeId}")
+    public ResponseEntity<?> findLoaiSuaByMaLoaiSua(@PathVariable("milkTypeId") String milkTypeId) {
+        Optional<LoaiSua> optionalLoaiSua = loaiSuaService.findLoaiSuaByMaLoaiSua(milkTypeId);
         if (optionalLoaiSua.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(optionalLoaiSua.get());
         }
         throw new CustomException(CustomErrorCode.E203);
     }
 
-    @GetMapping("/search/{tenLoaiSua}")
-    public ResponseEntity<?> searchLoaiSuaByTenLoaiSua(@PathVariable("tenLoaiSua") String tenLoaiSua) {
-        return ResponseEntity.status(HttpStatus.OK).body(loaiSuaService.searchLoaiSuaByTenLoaiSua(tenLoaiSua));
+    @GetMapping("/search/{milkTypeName}")
+    public ResponseEntity<?> searchLoaiSuaByTenLoaiSua(@PathVariable("milkTypeName") String milkTypeName) {
+        return ResponseEntity.status(HttpStatus.OK).body(loaiSuaService.searchLoaiSuaByTenLoaiSua(milkTypeName));
     }
 
     @PostMapping("/register")
@@ -47,10 +47,10 @@ public class LoaiSuaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(loaiSua);
     }
 
-    @PutMapping("/update/{maLoaiSua}")
+    @PutMapping("/update/{milkTypeId}")
     public ResponseEntity<?> updateLoaiSua(@RequestBody LoaiSua loaiSua,
-                                           @PathVariable("maLoaiSua") String maLoaiSua) {
-        Optional<LoaiSua> optionalLoaiSua = loaiSuaService.findLoaiSuaByMaLoaiSua(maLoaiSua);
+                                           @PathVariable("milkTypeId") String milkTypeId) {
+        Optional<LoaiSua> optionalLoaiSua = loaiSuaService.findLoaiSuaByMaLoaiSua(milkTypeId);
         if (optionalLoaiSua.isPresent()) {
             loaiSuaService.updateLoaiSua(loaiSua);
             return ResponseEntity.status(HttpStatus.OK).body(loaiSua);
@@ -58,12 +58,12 @@ public class LoaiSuaController {
         throw new CustomException(CustomErrorCode.E203);
     }
 
-    @DeleteMapping("/delete/{maLoaiSua}")
-    public ResponseEntity<?> deleteHangSua(@PathVariable("maLoaiSua") String maLoaiSua) {
-        Optional<LoaiSua> optionalLoaiSua = loaiSuaService.findLoaiSuaByMaLoaiSua(maLoaiSua);
+    @DeleteMapping("/delete/{milkTypeId}")
+    public ResponseEntity<?> deleteHangSua(@PathVariable("milkTypeId") String milkTypeId) {
+        Optional<LoaiSua> optionalLoaiSua = loaiSuaService.findLoaiSuaByMaLoaiSua(milkTypeId);
         if (optionalLoaiSua.isPresent()) {
-            loaiSuaService.deleteLoaiSua(maLoaiSua);
-            return ResponseEntity.status(HttpStatus.OK).body(maLoaiSua + " has been deleted.");
+            loaiSuaService.deleteLoaiSua(milkTypeId);
+            return ResponseEntity.status(HttpStatus.OK).body(milkTypeId + " has been deleted.");
         }
         throw new CustomException(CustomErrorCode.E203);
     }

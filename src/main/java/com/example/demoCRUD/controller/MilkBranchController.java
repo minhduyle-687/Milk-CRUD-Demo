@@ -13,29 +13,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/hangsua")
+@RequestMapping("/milkbranchs")
 
-public class HangSuaController {
+public class MilkBranchController {
     @Autowired
     private HangSuaService hangSuaService;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public ResponseEntity<?> getAllHangSua() {
         return ResponseEntity.status(HttpStatus.OK).body(hangSuaService.getAllHangSua());
     }
 
-    @GetMapping("/find/{maHangSua}")
-    public ResponseEntity<?> findHangSuaByMaHangSua(@PathVariable("maHangSua") String maHangSua) {
-        Optional<HangSua> optionalHangSua = hangSuaService.findHangSuaByMaHangSua(maHangSua);
+    @GetMapping("/find/{milkBranchId}")
+    public ResponseEntity<?> findHangSuaByMaHangSua(@PathVariable("milkBranchId") String milkBranchId) {
+        Optional<HangSua> optionalHangSua = hangSuaService.findHangSuaByMaHangSua(milkBranchId);
         if (optionalHangSua.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(optionalHangSua.get());
         }
         throw new CustomException(CustomErrorCode.E203);
     }
 
-    @GetMapping("/search/{tenHangSua}")
-    public ResponseEntity<?> searchHangSuaByTenHangSua(@PathVariable("tenHangSua") String tenHangSua) {
-        return ResponseEntity.status(HttpStatus.OK).body(hangSuaService.searchHangSuaByTenHangSua(tenHangSua));
+    @GetMapping("/search/{milkBranchName}")
+    public ResponseEntity<?> searchHangSuaByTenHangSua(@PathVariable("milkBranchName") String milkBranchName) {
+        return ResponseEntity.status(HttpStatus.OK).body(hangSuaService.searchHangSuaByTenHangSua(milkBranchName));
     }
 
     @PostMapping("/register")
@@ -49,10 +49,10 @@ public class HangSuaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(hangSua);
     }
 
-    @PutMapping("/update/{maHangSua}")
+    @PutMapping("/update/{milkBranchId}")
     public ResponseEntity<?> updateHangSua(@RequestBody HangSua hangSua,
-                                           @PathVariable("maHangSua") String maHangSua) {
-        Optional<HangSua> optionalHangSua = hangSuaService.findHangSuaByMaHangSua(maHangSua);
+                                           @PathVariable("milkBranchId") String milkBranchId) {
+        Optional<HangSua> optionalHangSua = hangSuaService.findHangSuaByMaHangSua(milkBranchId);
         if (optionalHangSua.isPresent()) {
             hangSuaService.updateHangSua(hangSua);
             return ResponseEntity.status(HttpStatus.OK).body(hangSua);
@@ -60,12 +60,12 @@ public class HangSuaController {
         throw new CustomException(CustomErrorCode.E203);
     }
 
-    @DeleteMapping("/delete/{maHangSua}")
-    public ResponseEntity<?> deleteHangSua(@PathVariable("maHangSua") String maHangSua) {
-        Optional<HangSua> optionalHangSua = hangSuaService.findHangSuaByMaHangSua(maHangSua);
+    @DeleteMapping("/delete/{milkBranchId}")
+    public ResponseEntity<?> deleteHangSua(@PathVariable("milkBranchId") String milkBranchId) {
+        Optional<HangSua> optionalHangSua = hangSuaService.findHangSuaByMaHangSua(milkBranchId);
         if (optionalHangSua.isPresent()) {
-            hangSuaService.deleteHangSua(maHangSua);
-            return ResponseEntity.status(HttpStatus.OK).body(maHangSua + " has been deleted.");
+            hangSuaService.deleteHangSua(milkBranchId);
+            return ResponseEntity.status(HttpStatus.OK).body(milkBranchId + " has been deleted.");
         }
         throw new CustomException(CustomErrorCode.E203);
     }
