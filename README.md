@@ -7,7 +7,11 @@ Simple CRUD REST API for Milk database using Spring Boot, Mybatis and MySQL
 * [Setup](#setup)
 
 ## General info
-This project is used for practicing and learning technologies such as Spring Boot, MyBatis, Flyway, ...
+This project is used for
+* practicing technologies such as Spring Boot, Flyway, ...
+* learning how to config mybatis and how mybatis manage with relation database (OneToOne, OneToMany, ManyToOne)
+
+
 	
 ## Technologies
 Project is created with:
@@ -16,5 +20,5 @@ Project is created with:
 * Spring boot version: 3.2.4
 * Flyway
 * Mybatis
-* SpringDoc OpenAPI
+* SpringDoc OpenAPI (http://localhost:8080/swagger-ui/index.html)
 * MySQL
