@@ -10,9 +10,8 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 
 @SpringBootApplication
 public class DemoCrudApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(DemoCrudApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoCrudApplication.class, args);
+    }
 
 }

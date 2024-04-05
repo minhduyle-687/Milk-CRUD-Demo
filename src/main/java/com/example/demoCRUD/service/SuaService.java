@@ -7,19 +7,19 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SuaService {
-    List<Sua> getAllSua();
+    List<Sua> getAllMilk();
 
-    Optional<Sua> findSuaByMaSua(String maSua);
+    Optional<Sua> findMilkByMilkId(String maSua);
 
-    List<Sua> searchSuaByTenSua(String tenSua);
+    List<Sua> searchMilkByMilkName(String tenSua);
 
-    List<Sua> searchSuaByMaHangSua(String maHangSua);
+    List<Sua> searchMilkByMilkBranchId(String maHangSua);
 
-    List<Sua> searchSuaByMaLoaiSua(String maLoaiSua);
+    List<Sua> searchMilkByMilkTypeId(String maLoaiSua);
 
-    void createSua(SuaDto sua);
+    void createMilk(SuaDto sua);
 
-    void updateSua(SuaDto sua);
+    void updateMilk(SuaDto sua);
 
-    void deleteSua(String maSua);
+    void deleteMilk(String maSua);
 }

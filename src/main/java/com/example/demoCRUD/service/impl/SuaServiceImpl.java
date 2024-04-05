@@ -4,6 +4,7 @@ import com.example.demoCRUD.dto.SuaDto;
 import com.example.demoCRUD.entity.Sua;
 import com.example.demoCRUD.repository.SuaRepository;
 import com.example.demoCRUD.service.SuaService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,43 +17,43 @@ public class SuaServiceImpl implements SuaService {
     private SuaRepository suaRepository;
 
     @Override
-    public List<Sua> getAllSua() {
-        return suaRepository.getAllSua();
+    public List<Sua> getAllMilk() {
+        return suaRepository.getAllMilk();
     }
 
     @Override
-    public Optional<Sua> findSuaByMaSua(String maSua) {
-        return Optional.ofNullable(suaRepository.findSuaByMaSua(maSua));
+    public Optional<Sua> findMilkByMilkId(String milkId) {
+        return Optional.ofNullable(suaRepository.findMilkByMilkId(milkId));
     }
 
     @Override
-    public List<Sua> searchSuaByTenSua(String tenSua) {
-        return suaRepository.searchSuaByTenSua(tenSua);
+    public List<Sua> searchMilkByMilkName(String milkName) {
+        return suaRepository.searchMilkByMilkName(milkName);
     }
 
     @Override
-    public List<Sua> searchSuaByMaHangSua(String maHangSua) {
-        return suaRepository.searchSuaByMaHangSua(maHangSua);
+    public List<Sua> searchMilkByMilkBranchId(String milkBranchId) {
+        return suaRepository.searchMilkByMilkBranchId(milkBranchId);
     }
 
     @Override
-    public List<Sua> searchSuaByMaLoaiSua(String maLoaiSua) {
-        return suaRepository.searchSuaByMaLoaiSua(maLoaiSua);
+    public List<Sua> searchMilkByMilkTypeId(String milkTypeId) {
+        return suaRepository.searchMilkByMilkTypeId(milkTypeId);
     }
 
     @Override
-    public void createSua(SuaDto sua) {
-        suaRepository.createSua(sua);
+    public void createMilk(SuaDto milk) {
+        suaRepository.createMilk(milk);
     }
 
     @Override
-    public void updateSua(SuaDto sua) {
-        suaRepository.updateSua(sua);
+    public void updateMilk(SuaDto milk) {
+        suaRepository.updateMilk(milk);
     }
 
     @Override
-    public void deleteSua(String maSua) {
-        Optional<Sua> optionalSua = this.findSuaByMaSua(maSua);
-        optionalSua.ifPresent(sua->suaRepository.deleteSua(sua));
+    public void deleteMilk(String milkId) {
+        Optional<Sua> optionalSua = this.findMilkByMilkId(milkId);
+        optionalSua.ifPresent(milk -> suaRepository.deleteMilk(milk));
     }
 }

@@ -1,12 +1,12 @@
 package com.example.demoCRUD.controller;
 
-import com.example.demoCRUD.entity.HangSua;
+import com.example.demoCRUD.common.CustomErrorCode;
 import com.example.demoCRUD.entity.LoaiSua;
+import com.example.demoCRUD.exception.CustomException;
 import com.example.demoCRUD.service.LoaiSuaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class LoaiSuaController {
         if (optionalLoaiSua.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(optionalLoaiSua.get());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ma loai sua not found!!");
+        throw new CustomException(CustomErrorCode.E203);
     }
 
     @GetMapping("/search/{tenLoaiSua}")
@@ -41,8 +41,7 @@ public class LoaiSuaController {
         Optional<LoaiSua> optionalLoaiSua =
                 loaiSuaService.findLoaiSuaByMaLoaiSua(loaiSua.getMaLoaiSua());
         if (optionalLoaiSua.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Ma loai sua has existed. " +
-                    "Please change different ma loai sua!!");
+            throw new CustomException(CustomErrorCode.E209);
         }
         loaiSuaService.createLoaiSua(loaiSua);
         return ResponseEntity.status(HttpStatus.CREATED).body(loaiSua);
@@ -56,7 +55,7 @@ public class LoaiSuaController {
             loaiSuaService.updateLoaiSua(loaiSua);
             return ResponseEntity.status(HttpStatus.OK).body(loaiSua);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ma loai sua not found!!");
+        throw new CustomException(CustomErrorCode.E203);
     }
 
     @DeleteMapping("/delete/{maLoaiSua}")
@@ -66,6 +65,6 @@ public class LoaiSuaController {
             loaiSuaService.deleteLoaiSua(maLoaiSua);
             return ResponseEntity.status(HttpStatus.OK).body(maLoaiSua + " has been deleted.");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ma loai sua not found!!");
+        throw new CustomException(CustomErrorCode.E203);
     }
 }

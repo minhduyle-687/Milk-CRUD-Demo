@@ -1,28 +1,26 @@
 package com.example.demoCRUD.repository;
 
 import com.example.demoCRUD.dto.SuaDto;
-import com.example.demoCRUD.entity.HangSua;
 import com.example.demoCRUD.entity.Sua;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper
 public interface SuaRepository {
-    List<Sua> getAllSua();
+    List<Sua> getAllMilk();
 
-    Sua findSuaByMaSua(String maSua);
+    Sua findMilkByMilkId(String milkId);
 
-    List<Sua> searchSuaByTenSua(String tenSua);
+    List<Sua> searchMilkByMilkName(String milkName);
 
-    List<Sua> searchSuaByMaHangSua(String maHangSua);
+    List<Sua> searchMilkByMilkBranchId(String milkBranchId);
 
-    List<Sua> searchSuaByMaLoaiSua(String maLoaiSua);
+    List<Sua> searchMilkByMilkTypeId(String milkTypeId);
 
-    void createSua(SuaDto sua);
+    void createMilk(SuaDto milkDto);
 
-    void updateSua(SuaDto sua);
+    void updateMilk(SuaDto milkDto);
 
-    void deleteSua(Sua sua);
+    void deleteMilk(Sua milk);
 }

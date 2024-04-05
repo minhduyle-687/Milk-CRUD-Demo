@@ -1,15 +1,15 @@
 package com.example.demoCRUD.controller;
 
+import com.example.demoCRUD.common.CustomErrorCode;
 import com.example.demoCRUD.entity.HangSua;
+import com.example.demoCRUD.exception.CustomException;
 import com.example.demoCRUD.service.HangSuaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,7 +30,7 @@ public class HangSuaController {
         if (optionalHangSua.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(optionalHangSua.get());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ma hang sua not found!!");
+        throw new CustomException(CustomErrorCode.E203);
     }
 
     @GetMapping("/search/{tenHangSua}")
@@ -43,8 +43,7 @@ public class HangSuaController {
         Optional<HangSua> optionalHangSua =
                 hangSuaService.findHangSuaByMaHangSua(hangSua.getMaHangSua());
         if (optionalHangSua.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Ma hang sua has existed. " +
-                    "Please change different ma hang sua!!");
+            throw new CustomException(CustomErrorCode.E209);
         }
         hangSuaService.createHangSua(hangSua);
         return ResponseEntity.status(HttpStatus.CREATED).body(hangSua);
@@ -58,7 +57,7 @@ public class HangSuaController {
             hangSuaService.updateHangSua(hangSua);
             return ResponseEntity.status(HttpStatus.OK).body(hangSua);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ma hang sua not found!!");
+        throw new CustomException(CustomErrorCode.E203);
     }
 
     @DeleteMapping("/delete/{maHangSua}")
@@ -68,6 +67,6 @@ public class HangSuaController {
             hangSuaService.deleteHangSua(maHangSua);
             return ResponseEntity.status(HttpStatus.OK).body(maHangSua + " has been deleted.");
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ma hang sua not found!!");
+        throw new CustomException(CustomErrorCode.E203);
     }
 }

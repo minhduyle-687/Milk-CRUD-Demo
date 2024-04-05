@@ -3,36 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demoCRUD.repository.SuaRepository">
 
-<!--    Nested Select for Association-->
-
-    <!--    <resultMap id="suaResultMap" type="Sua" autoMapping="true">-->
-<!--        <id property="maSua" column="Ma_sua"/>-->
-<!--        <association property="hangSua" column="Ma_hang_sua" javaType="HangSua"-->
-<!--                     select="findHangSua">-->
-<!--            <id property="maHangSua" column="Ma_hang_sua"/>-->
-<!--        </association>-->
-<!--        <association property="loaiSua" column="Ma_loai_sua" javaType="LoaiSua"-->
-<!--                     select="findLoaiSua">-->
-<!--            <id property="maLoaiSua" column="Ma_loai_sua"/>-->
-<!--        </association>-->
-<!--    </resultMap>-->
-
-<!--    <select id="findHangSua" resultType="HangSua">-->
-<!--        SELECT *-->
-<!--        FROM hang_sua-->
-<!--        WHERE Ma_hang_sua = #{maHangSua}-->
-<!--        LIMIT 1-->
-<!--    </select>-->
-
-<!--    <select id="findLoaiSua" resultType="LoaiSua">-->
-<!--        SELECT *-->
-<!--        FROM loai_sua-->
-<!--        WHERE Ma_loai_sua = #{maLoaiSua}-->
-<!--        LIMIT 1-->
-<!--    </select>-->
-
-<!--    Nested Results for Association-->
-
     <resultMap id="suaResultMap" type="Sua" autoMapping="true">
         <id property="maSua" column="Ma_sua"/>
         <association property="hangSua" javaType="HangSua">
@@ -48,7 +18,7 @@
         </association>
     </resultMap>
 
-    <select id="getAllSua" resultMap="suaResultMap">
+    <select id="getAllMilk" resultMap="suaResultMap">
         SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
         hs.Dia_chi as diaChi,
         hs.Dien_thoai as dienThoai,
@@ -62,7 +32,7 @@
         LEFT OUTER JOIN loai_sua ls ON s.Ma_loai_sua=ls.Ma_loai_sua
     </select>
 
-    <select id="findSuaByMaSua" resultMap="suaResultMap">
+    <select id="findMilkByMilkId" resultMap="suaResultMap">
         SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
         hs.Dia_chi as diaChi,
         hs.Dien_thoai as dienThoai,
@@ -78,7 +48,7 @@
         LIMIT 1
     </select>
 
-    <select id="searchSuaByTenSua" resultMap="suaResultMap">
+    <select id="searchMilkByMilkName" resultMap="suaResultMap">
         SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
         hs.Dia_chi as diaChi,
         hs.Dien_thoai as dienThoai,
@@ -93,7 +63,7 @@
         WHERE s.Ten_sua LIKE '%' #{tenSua} '%'
     </select>
 
-    <select id="searchSuaByMaHangSua" resultMap="suaResultMap">
+    <select id="searchMilkByMilkBranchId" resultMap="suaResultMap">
         SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
         hs.Dia_chi as diaChi,
         hs.Dien_thoai as dienThoai,
@@ -108,7 +78,7 @@
         WHERE hs.Ma_hang_sua = #{maHangSua}
     </select>
 
-    <select id="searchSuaByMaLoaiSua" resultMap="suaResultMap">
+    <select id="searchMilkByMilkTypeId" resultMap="suaResultMap">
         SELECT s.Ma_sua, s.Ten_sua, hs.Ma_hang_sua as maHangSua, hs.Ten_hang_sua as tenHangSua,
         hs.Dia_chi as diaChi,
         hs.Dien_thoai as dienThoai,
@@ -123,14 +93,14 @@
         WHERE ls.Ma_loai_sua = #{maLoaiSua}
     </select>
 
-    <insert id="createSua" parameterType="SuaDto">
+    <insert id="createMilk" parameterType="SuaDto">
         INSERT INTO sua (Ma_sua, Ten_sua, Ma_hang_sua, Ma_loai_sua, Trong_luong, Don_gia,
         TP_Dinh_Duong, Loi_ich, Hinh)
         VALUES (#{maSua}, #{tenSua}, #{maHangSua,jdbcType=VARCHAR}, #{maLoaiSua,jdbcType=VARCHAR},
         #{trongLuong}, #{donGia}, #{tpDinhDuong}, #{loiIch}, #{hinh})
     </insert>
 
-    <update id="updateSua" parameterType="SuaDto">
+    <update id="updateMilk" parameterType="SuaDto">
         UPDATE sua
         SET Ten_sua = #{tenSua},
         Ma_hang_sua = #{maHangSua,jdbcType=VARCHAR},
@@ -143,7 +113,7 @@
         WHERE Ma_sua = #{maSua}
     </update>
 
-    <delete id="deleteSua" parameterType="Sua">
+    <delete id="deleteMilk" parameterType="Sua">
         DELETE FROM sua
         WHERE Ma_sua = #{maSua,jdbcType=CHAR}
     </delete>
