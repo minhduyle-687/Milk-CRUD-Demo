@@ -1,5 +1,6 @@
 package com.example.demoCRUD.entity;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.List;
@@ -10,7 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class HangSua {
+    @NotEmpty(message = "maHangSua cannot be null")
     private String maHangSua;
+    @NotEmpty(message = "maHangSua cannot be null")
     private String tenHangSua;
     private String diaChi;
     private String dienThoai;

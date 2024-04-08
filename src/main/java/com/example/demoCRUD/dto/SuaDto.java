@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class SuaDto {
+    private String maSua;
     private String tenSua;
 
     private String maHangSua;
