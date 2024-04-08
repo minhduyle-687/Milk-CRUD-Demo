@@ -4,7 +4,6 @@ import com.example.demoCRUD.dto.SuaDto;
 import com.example.demoCRUD.entity.Sua;
 import com.example.demoCRUD.repository.SuaRepository;
 import com.example.demoCRUD.service.SuaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

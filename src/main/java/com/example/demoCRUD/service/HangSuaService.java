@@ -1,6 +1,7 @@
 package com.example.demoCRUD.service;
 
 
+import com.example.demoCRUD.dto.HangSuaDto;
 import com.example.demoCRUD.entity.HangSua;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Optional;
 public interface HangSuaService {
     List<HangSua> getAllHangSua();
 
-    Optional<HangSua> findHangSuaByMaHangSua(String maHangSua);
+    HangSua findHangSuaByMaHangSua(String maHangSua);
 
     List<HangSua> searchHangSuaByTenHangSua(String tenHangSua);
 
@@ -18,5 +19,5 @@ public interface HangSuaService {
 
     void updateHangSua(HangSua hangSua);
 
-    void deleteHangSua(String maHangSua);
+    void deleteHangSua(String tenHangSua);
 }

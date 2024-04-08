@@ -1,4 +1,4 @@
-package com.example.demoCRUD.controller;
+package com.example.demoCRUD.exception;
 
 import com.example.demoCRUD.common.CustomErrorCode;
 import com.example.demoCRUD.dto.common.RestApiResponse;
