@@ -33,4 +33,16 @@ public class RestApiResponse<T> implements Serializable {
                         .errorMessage(errorCode.getMessageTemplate())
                         .build());
     }
+
+//    public static <T> RestApiResponse<T> of(final Throwable cause) {
+//        return of(cause, null);
+//    }
+
+//    public static <T> RestApiResponse<T> of(final Throwable cause,HttpStatus status) {
+//        return ResponseEntity.status(status)
+//                .body(RestApiResponse.<T>builder()
+//                        .errorCode("404")
+//                        .errorMessage(cause.getMessage())
+//                        .build());
+//    }
 }
