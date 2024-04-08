@@ -1,7 +1,9 @@
 package com.example.demoCRUD.service.impl;
 
+import com.example.demoCRUD.common.CustomErrorCode;
 import com.example.demoCRUD.dto.SuaDto;
 import com.example.demoCRUD.entity.Sua;
+import com.example.demoCRUD.exception.CustomException;
 import com.example.demoCRUD.repository.SuaRepository;
 import com.example.demoCRUD.service.SuaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,9 @@ public class SuaServiceImpl implements SuaService {
     }
 
     @Override
-    public Optional<Sua> findMilkByMilkId(String milkId) {
-        return Optional.ofNullable(suaRepository.findMilkByMilkId(milkId));
+    public Sua findMilkByMilkId(String milkId) {
+        Optional<Sua> suaOptional = Optional.ofNullable(suaRepository.findMilkByMilkId(milkId));
+        return suaOptional.orElseThrow(() -> new CustomException(CustomErrorCode.E203));
     }
 
     @Override
@@ -42,17 +45,30 @@ public class SuaServiceImpl implements SuaService {
 
     @Override
     public void createMilk(SuaDto milk) {
+        Optional<Sua> suaOptional =
+                Optional.ofNullable(suaRepository.findMilkByMilkId(milk.getMaSua()));
+        if (suaOptional.isPresent()) {
+            throw new CustomException(CustomErrorCode.E209);
+        }
         suaRepository.createMilk(milk);
     }
 
     @Override
-    public void updateMilk(SuaDto milk) {
+    public void updateMilk(SuaDto milk, String maSua) {
+        Optional<Sua> suaOptional =
+                Optional.ofNullable(suaRepository.findMilkByMilkId(maSua));
+        if (suaOptional.isEmpty()) {
+            throw new CustomException(CustomErrorCode.E203);
+        }
         suaRepository.updateMilk(milk);
     }
 
     @Override
     public void deleteMilk(String milkId) {
-        Optional<Sua> optionalSua = this.findMilkByMilkId(milkId);
-        optionalSua.ifPresent(milk -> suaRepository.deleteMilk(milk));
+        Optional<Sua> suaOptional = Optional.ofNullable(this.findMilkByMilkId(milkId));
+        if (suaOptional.isEmpty()) {
+            throw new CustomException(CustomErrorCode.E203);
+        }
+        suaRepository.deleteMilk(suaOptional.get());
     }
 }

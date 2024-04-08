@@ -34,6 +34,13 @@ public class RestApiResponse<T> implements Serializable {
                         .build());
     }
 
+        public static <T> RestApiResponse<T> of(CustomErrorCode errorCode) {
+        return RestApiResponse.<T>builder()
+                .errorCode(errorCode.getCode())
+                .errorMessage(errorCode.getMessageTemplate())
+                .build();
+    }
+
 //    public static <T> RestApiResponse<T> of(final Throwable cause) {
 //        return of(cause, null);
 //    }

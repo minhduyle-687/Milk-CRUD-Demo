@@ -9,13 +9,13 @@ import java.util.Optional;
 public interface LoaiSuaService {
     List<LoaiSua> getAllLoaiSua();
 
-    Optional<LoaiSua> findLoaiSuaByMaLoaiSua(String maLoaiSua);
+    LoaiSua findLoaiSuaByMaLoaiSua(String maLoaiSua);
 
     List<LoaiSua> searchLoaiSuaByTenLoaiSua(String tenLoaiSua);
 
     void createLoaiSua(LoaiSua loaiSua);
 
-    void updateLoaiSua(LoaiSua loaiSua);
+    void updateLoaiSua(LoaiSua loaiSua,String maLoaiSua);
 
     void deleteLoaiSua(String maLoaiSua);
 }

@@ -17,7 +17,7 @@ public interface HangSuaService {
 
     void createHangSua(HangSua hangSua);
 
-    void updateHangSua(HangSua hangSua,String maHangSua);
+    void updateHangSua(HangSua hangSua, String maHangSua);
 
     void deleteHangSua(String tenHangSua);
 }

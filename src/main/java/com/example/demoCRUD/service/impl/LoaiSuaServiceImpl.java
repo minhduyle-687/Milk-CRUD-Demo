@@ -1,6 +1,8 @@
 package com.example.demoCRUD.service.impl;
 
+import com.example.demoCRUD.common.CustomErrorCode;
 import com.example.demoCRUD.entity.LoaiSua;
+import com.example.demoCRUD.exception.CustomException;
 import com.example.demoCRUD.repository.LoaiSuaRepository;
 import com.example.demoCRUD.service.LoaiSuaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,10 @@ public class LoaiSuaServiceImpl implements LoaiSuaService {
     }
 
     @Override
-    public Optional<LoaiSua> findLoaiSuaByMaLoaiSua(String maLoaiSua) {
-        LoaiSua loaiSua = loaiSuaRepository.findLoaiSuaByMaLoaiSua(maLoaiSua);
-        return Optional.ofNullable(loaiSua);
+    public LoaiSua findLoaiSuaByMaLoaiSua(String maLoaiSua) {
+        Optional<LoaiSua> loaiSuaOptional =
+                Optional.ofNullable(loaiSuaRepository.findLoaiSuaByMaLoaiSua(maLoaiSua));
+        return loaiSuaOptional.orElseThrow(() -> new CustomException(CustomErrorCode.E203));
     }
 
     @Override
@@ -32,17 +35,30 @@ public class LoaiSuaServiceImpl implements LoaiSuaService {
 
     @Override
     public void createLoaiSua(LoaiSua loaiSua) {
+        Optional<LoaiSua> loaiSuaOptional =
+                Optional.ofNullable(loaiSuaRepository.findLoaiSuaByMaLoaiSua(loaiSua.getMaLoaiSua()));
+        if (loaiSuaOptional.isPresent()) {
+            throw new CustomException(CustomErrorCode.E209);
+        }
         loaiSuaRepository.createLoaiSua(loaiSua);
     }
 
     @Override
-    public void updateLoaiSua(LoaiSua loaiSua) {
+    public void updateLoaiSua(LoaiSua loaiSua,String maLoaiSua) {
+        Optional<LoaiSua> loaiSuaOptional =
+                Optional.ofNullable(loaiSuaRepository.findLoaiSuaByMaLoaiSua(maLoaiSua));
+        if (loaiSuaOptional.isEmpty()) {
+            throw new CustomException(CustomErrorCode.E203);
+        }
         loaiSuaRepository.updateLoaiSua(loaiSua);
     }
 
     @Override
     public void deleteLoaiSua(String maLoaiSua) {
-        Optional<LoaiSua> optionalLoaiSua = this.findLoaiSuaByMaLoaiSua(maLoaiSua);
-        optionalLoaiSua.ifPresent(loaiSua -> loaiSuaRepository.deleteLoaiSua(loaiSua));
+        Optional<LoaiSua> loaiSuaOptional = Optional.ofNullable(this.findLoaiSuaByMaLoaiSua(maLoaiSua));
+        if (loaiSuaOptional.isEmpty()) {
+            throw new CustomException(CustomErrorCode.E209);
+        }
+        loaiSuaRepository.deleteLoaiSua(loaiSuaOptional.get());
     }
 }

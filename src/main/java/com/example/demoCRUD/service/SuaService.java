@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface SuaService {
     List<Sua> getAllMilk();
 
-    Optional<Sua> findMilkByMilkId(String maSua);
+    Sua findMilkByMilkId(String maSua);
 
     List<Sua> searchMilkByMilkName(String tenSua);
 
@@ -19,7 +19,7 @@ public interface SuaService {
 
     void createMilk(SuaDto sua);
 
-    void updateMilk(SuaDto sua);
+    void updateMilk(SuaDto sua, String maSua);
 
     void deleteMilk(String maSua);
 }

@@ -28,10 +28,9 @@ public class HangSuaServiceImpl implements HangSuaService {
 
     @Override
     public HangSua findHangSuaByMaHangSua(String maHangSua) {
-        HangSua hangSua = hangSuaRepository.findHangSuaByMaHangSua(maHangSua);
-        if (hangSua != null)
-            return hangSua;
-        throw new CustomException(CustomErrorCode.E203);
+        Optional<HangSua> hangSuaOptional =
+                Optional.ofNullable(hangSuaRepository.findHangSuaByMaHangSua(maHangSua));
+        return hangSuaOptional.orElseThrow(() -> new CustomException(CustomErrorCode.E203));
     }
 
     @Override
@@ -41,25 +40,28 @@ public class HangSuaServiceImpl implements HangSuaService {
 
     @Override
     public void createHangSua(HangSua hangSua) {
-        HangSua hangSua1 = hangSuaRepository.findHangSuaByMaHangSua(hangSua.getMaHangSua());
-        if (hangSua1 != null)
+        Optional<HangSua> hangSuaOptional =
+                Optional.ofNullable(hangSuaRepository.findHangSuaByMaHangSua(hangSua.getMaHangSua()));
+        if (hangSuaOptional.isPresent())
             throw new CustomException(CustomErrorCode.E209);
         hangSuaRepository.createHangSua(hangSua);
     }
 
     @Override
     public void updateHangSua(HangSua hangSua, String maHangSua) {
-        HangSua hangSua1 = hangSuaRepository.findHangSuaByMaHangSua(maHangSua);
-        if (hangSua1 == null)
+        Optional<HangSua> hangSuaOptional =
+                Optional.ofNullable(hangSuaRepository.findHangSuaByMaHangSua(maHangSua));
+        if (hangSuaOptional.isEmpty())
             throw new CustomException(CustomErrorCode.E203);
         hangSuaRepository.updateHangSua(hangSua);
     }
 
     @Override
     public void deleteHangSua(String maHangSua) {
-        HangSua hangSua = this.findHangSuaByMaHangSua(maHangSua);
-        if (hangSua == null)
+        Optional<HangSua> hangSuaOptional =
+                Optional.ofNullable(hangSuaRepository.findHangSuaByMaHangSua(maHangSua));
+        if (hangSuaOptional.isEmpty())
             throw new CustomException(CustomErrorCode.E203);
-        hangSuaRepository.deleteHangSua(hangSua);
+        hangSuaRepository.deleteHangSua(hangSuaOptional.get());
     }
 }

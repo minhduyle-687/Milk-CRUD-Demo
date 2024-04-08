@@ -35,7 +35,7 @@
         LEFT OUTER JOIN sua s ON ls.Ma_loai_sua=s.Ma_loai_sua
         LEFT OUTER JOIN hang_sua hs ON s.Ma_hang_sua=hs.Ma_hang_sua
         WHERE ls.Ma_loai_sua = #{maLoaiSua}
-        LIMIT 1
+<!--        LIMIT 1-->
     </select>
 
     <select id="searchLoaiSuaByTenLoaiSua" resultMap="loaiSuaResultMap">
