@@ -11,10 +11,10 @@
         <setting name="defaultEnumTypeHandler" value="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
     </settings>
     <typeAliases>
-        <typeAlias alias = "HangSua" type = "com.example.demoCRUD.entity.HangSua"/>
-        <typeAlias alias = "LoaiSua" type = "com.example.demoCRUD.entity.LoaiSua"/>
-        <typeAlias alias = "Sua" type = "com.example.demoCRUD.entity.Sua"/>
-        <typeAlias alias = "SuaDto" type = "com.example.demoCRUD.dto.SuaDto"/>
+        <typeAlias alias = "MilkBranch" type = "com.example.demoCRUD.entity.MilkBranch"/>
+        <typeAlias alias = "MilkType" type = "com.example.demoCRUD.entity.MilkType"/>
+        <typeAlias alias = "Milk" type = "com.example.demoCRUD.entity.Milk"/>
+        <typeAlias alias = "MilkDto" type = "com.example.demoCRUD.dto.MilkDto"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -28,8 +28,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="db/mybatis/mappers/HangSuaMapper.xml"/>
-        <mapper resource="db/mybatis/mappers/LoaiSuaMapper.xml"/>
-        <mapper resource="db/mybatis/mappers/SuaMapper.xml"/>
+        <mapper resource="db/mybatis/mappers/MilkBranchMapper.xml"/>
+        <mapper resource="db/mybatis/mappers/MilkTypeMapper.xml"/>
+        <mapper resource="db/mybatis/mappers/MilkMapper.xml"/>
     </mappers>
 </configuration>

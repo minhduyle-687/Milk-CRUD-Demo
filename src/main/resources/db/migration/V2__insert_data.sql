@@ -1,4 +1,4 @@
-INSERT INTO `hang_sua` (`Ma_hang_sua`, `Ten_hang_sua`, `Dia_chi`, `Dien_thoai`, `Email`) VALUES
+INSERT INTO `milk_branch` (`Milk_branch_id`, `Milk_branch_name`, `Address`, `Phone`, `Email`) VALUES
 ('AB', 'Abbott', '123 truong dinh', '083123456', 'abbott@yahoo.com'),
 ('DL', 'Dutch Lady', 'Khu công nghiệp Biên Hòa - Đồng Nai', '7826451', 'dutchlady@dl.com'),
 ('DM', 'Dumex', 'Khu công nghiệp Sóng Thần Bình Dương', '6258943', 'dumex@dm.com'),
@@ -7,13 +7,13 @@ INSERT INTO `hang_sua` (`Ma_hang_sua`, `Ten_hang_sua`, `Dia_chi`, `Dien_thoai`, 
 ('NTF', 'Nutifood', 'Khu công nghiệp Sóng Thần Bình Dương', '7895632', 'nutifood@ntf.com'),
 ('VNM', 'Vinamilk', '123 Nguyễn Du - Quận 1 - TP.HCM', '8794561', 'vinamilk@vnm.com');
 
-INSERT INTO `loai_sua` (`Ma_loai_sua`, `Ten_loai_sua`) VALUES
+INSERT INTO `milk_type` (`Milk_type_id`, `Milk_type_name`) VALUES
 ('SB', 'Sữa bột'),
 ('SC', 'Sữa chua'),
 ('SD', 'Sữa đặc'),
 ('ST', 'Sữa tươi');
 
-INSERT INTO `sua` (`Ma_sua`, `Ten_sua`, `Ma_hang_sua`, `Ma_loai_sua`, `Trong_luong`, `Don_gia`, `Tp_dinh_duong`, `Loi_ich`, `Hinh`) VALUES
+INSERT INTO `milk` (`Milk_id`, `Milk_name`, `Milk_branch_id`, `Milk_type_id`, `Weight`, `Price`, `Nutrition_facts`, `Benefits`, `Picture`) VALUES
 ('AB0001', 'Gain Advance', 'AB', 'SB', 400, 107000, 'Sữa không béo, dầu thực vật, đường lactose, đường sucrose, hương liệu vani nhân tạo, các vitamin và khoáng chất cần thiết, nucleotide và taurine.', 'Sữa bột Gain Advance sữa bột tiếp theo giàu đạmTPAN & Taurine giúp hỗ trợ quá trình phát triển hệ thống miễn dịch và não bộ của bé', 's_abbott_gainadvance_bot_400.jpg'),
 ('AB0002', 'Gain IQ', 'AB', 'SB', 400, 107000, 'GAIN IQ có nguồn đạm chất lượng cao, hỗn hợp dầu thực vật chức các axit béo thiết yếu, chất bột đường, các Vitamin và khoáng chất , bảo vệ hệ tiêu hóa tốt hơn nhờ sự bổ sung FOS và Probiotic', 'Nhằm thúc đẩy sự tăng trưởng của trẻ và đảm bảo năng lượng cần thiết đối với trẻ năng động. Hỗn hợp dưỡng chất độc đáo hỗ trợ sự phát triển não bộ và thị giác của trẻ', 's_abbott_ganiq.jpg'),
 ('AB0003', 'Abbott Grow', 'AB', 'SB', 400, 87000, 'Sữa toàn phần, sữa bột không béo, mật bắp, đường lactose, đường sucrose, hương liệu vani nhân tạo, vitamin, khoáng chất, taurine... ', 'Sữa bột GROW được đặc chế và gia tăng thêm các loại Vitamin, khoáng chất, và các nguyên tố siêu vi lượng cần thiết cho khẩu phần ăn. Sữa bột GROW bổ sung các nhu cầu dinh dưỡng giúp cho việc tăng tr', 's_abbott_grow_400.jpg'),

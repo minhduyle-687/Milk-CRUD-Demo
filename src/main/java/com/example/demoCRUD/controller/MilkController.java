@@ -1,47 +1,42 @@
 package com.example.demoCRUD.controller;
 
-import com.example.demoCRUD.common.CustomErrorCode;
-import com.example.demoCRUD.dto.SuaDto;
-import com.example.demoCRUD.entity.Sua;
-import com.example.demoCRUD.exception.CustomException;
-import com.example.demoCRUD.service.SuaService;
+import com.example.demoCRUD.dto.MilkDto;
+import com.example.demoCRUD.service.MilkService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/milks")
 public class MilkController {
     @Autowired
-    private SuaService suaService;
+    private MilkService milkService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> getAllMilk() {
-        return ResponseEntity.status(HttpStatus.OK).body(suaService.getAllMilk());
+        return ResponseEntity.status(HttpStatus.OK).body(milkService.getAllMilk());
     }
 
     @GetMapping("/{milkId}")
     public ResponseEntity<?> findMilkByMilkId(@PathVariable("milkId") String milkId) {
-        return ResponseEntity.status(HttpStatus.OK).body(suaService.findMilkByMilkId(milkId));
+        return ResponseEntity.status(HttpStatus.OK).body(milkService.findMilkByMilkId(milkId));
     }
 
 //    @GetMapping("/search-milkname/{milkName}")
 //    public ResponseEntity<?> searchMilkByMilkName(@PathVariable("milkName") String milkName) {
-//        return ResponseEntity.status(HttpStatus.OK).body(suaService.searchMilkByMilkName(milkName));
+//        return ResponseEntity.status(HttpStatus.OK).body(milkService.searchMilkByMilkName(milkName));
 //    }
 //
 //    @GetMapping("/search-milkbranchid/{milkBranchId}")
 //    public ResponseEntity<?> searchMilkByMilkBranchId(@PathVariable("milkBranchId") String milkBranchId) {
-//        return ResponseEntity.status(HttpStatus.OK).body(suaService.searchMilkByMilkBranchId(milkBranchId));
+//        return ResponseEntity.status(HttpStatus.OK).body(milkService.searchMilkByMilkBranchId(milkBranchId));
 //    }
 //
 //    @GetMapping("/search-milkTypeId/{milkTypeId}")
 //    public ResponseEntity<?> searchMilkByMilkTypeId(@PathVariable("milkTypeId") String milkTypeId) {
-//        return ResponseEntity.status(HttpStatus.OK).body(suaService.searchMilkByMilkTypeId(milkTypeId));
+//        return ResponseEntity.status(HttpStatus.OK).body(milkService.searchMilkByMilkTypeId(milkTypeId));
 //    }
 
 //    @GetMapping("/search/")
@@ -51,22 +46,22 @@ public class MilkController {
 //
 //    }
 
-    @PostMapping("/")
-    public ResponseEntity<?> createMilk(@RequestBody @Valid SuaDto suaDto) {
-        suaService.createMilk(suaDto);
+    @PostMapping("")
+    public ResponseEntity<?> createMilk(@RequestBody @Valid MilkDto milkDto) {
+        milkService.createMilk(milkDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{milkId}")
-    public ResponseEntity<?> updateMilk(@RequestBody @Valid SuaDto suaDto,
+    public ResponseEntity<?> updateMilk(@RequestBody @Valid MilkDto milkDto,
                                            @PathVariable("milkId") String milkId) {
-        suaService.updateMilk(suaDto, milkId);
+        milkService.updateMilk(milkDto, milkId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/{milkId}")
     public ResponseEntity<?> deleteMilk(@PathVariable("milkId") String milkId) {
-        suaService.deleteMilk(milkId);
+        milkService.deleteMilk(milkId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

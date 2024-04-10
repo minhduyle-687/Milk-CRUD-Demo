@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoCRUD.repository.MilkTypeRepository">
+
+    <resultMap id="milkTypeResultMap" type="MilkType" autoMapping="true">
+        <id property="milkTypeId" column="Milk_type_id"/>
+        <collection property="milks" ofType="Milk">
+            <id property="milkId" column="Milk_id"/>
+            <result property="milkName" column="Milk_name"/>
+            <result property="weight" column="Weight"/>
+            <result property="price" column="Price"/>
+            <result property="nutritionFacts" column="Nutrition_facts"/>
+            <result property="benefits" column="Benefits"/>
+            <result property="picture" column="Picture"/>
+            <association property="milkBranch" javaType="MilkBranch">
+                <id property="milkBranchId" column="Milk_branch_id"/>
+                <result property="milkBranchName" column="Milk_branch_name"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="getAllMilkType" resultMap="milkTypeResultMap">
+        SELECT ls.Milk_type_id, ls.Milk_type_name, s.Milk_id, s.Milk_name, hs.Milk_branch_name,
+        s.Weight, s.Price, s.Nutrition_facts, s.Benefits, s.Picture
+        FROM milk_type ls
+        LEFT OUTER JOIN milk s ON ls.Milk_type_id=s.Milk_type_id
+        LEFT OUTER JOIN milk_branch hs ON s.Milk_branch_id=hs.Milk_branch_id
+    </select>
+
+    <select id="findMilkTypeByMilkTypeId" resultMap="milkTypeResultMap">
+        SELECT ls.Milk_type_id, ls.Milk_type_name, s.Milk_id, s.Milk_name, hs.Milk_branch_name,
+        s.Weight, s.Price, s.Nutrition_facts, s.Benefits, s.Picture
+        FROM milk_type ls
+        LEFT OUTER JOIN milk s ON ls.Milk_type_id=s.Milk_type_id
+        LEFT OUTER JOIN milk_branch hs ON s.Milk_branch_id=hs.Milk_branch_id
+        WHERE ls.Milk_type_id = #{milkTypeId}
+<!--        LIMIT 1-->
+    </select>
+
+    <select id="searchMilkTypeByMilkTypeName" resultMap="milkTypeResultMap">
+        SELECT ls.Milk_type_id, ls.Milk_type_name, s.Milk_id, s.Milk_name, hs.Milk_branch_name,
+        s.Weight, s.Price, s.Nutrition_facts, s.Benefits, s.Picture
+        FROM milk_type ls
+        LEFT OUTER JOIN milk s ON ls.Milk_type_id=s.Milk_type_id
+        LEFT OUTER JOIN milk_branch hs ON s.Milk_branch_id=hs.Milk_branch_id
+        WHERE ls.Milk_type_name LIKE '%' #{milkTypeName} '%'
+    </select>
+
+    <insert id="createMilkType" parameterType="MilkType">
+        INSERT INTO milk_type (Milk_type_id, Milk_type_name)
+        VALUES (#{milkTypeId}, #{milkTypeName})
+    </insert>
+
+    <update id="updateMilkType" parameterType="MilkType">
+        UPDATE milk_type
+        SET Milk_type_name = #{milkTypeName}
+        WHERE Milk_type_id = #{milkTypeId}
+    </update>
+
+    <delete id="deleteMilkType" parameterType="MilkType">
+        DELETE FROM milk_type
+        WHERE Milk_type_id = #{milkTypeId,jdbcType=CHAR}
+    </delete>
+
+</mapper>

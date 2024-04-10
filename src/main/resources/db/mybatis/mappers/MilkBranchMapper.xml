@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demoCRUD.repository.MilkBranchRepository">
+
+    <resultMap id="milkBranchResultMap" type="MilkBranch" autoMapping="true">
+        <id property="milkBranchId" column="Milk_branch_id"/>
+        <collection property="milks" ofType="Milk">
+            <id property="milkId" column="Milk_id"/>
+            <result property="milkName" column="Milk_name"/>
+            <result property="weight" column="Weight"/>
+            <result property="price" column="Price"/>
+            <result property="nutritionFacts" column="Nutrition_facts"/>
+            <result property="benefits" column="Benefits"/>
+            <result property="picture" column="Picture"/>
+            <association property="milkType" javaType="MilkType">
+                <id property="milkTypeId" column="Milk_type_id"/>
+                <result property="milkTypeName" column="Milk_type_name"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="getAllMilkBranch" resultMap="milkBranchResultMap">
+        SELECT hs.Milk_branch_id, hs.Milk_branch_name, hs.Address, hs.Phone, hs.Email,
+        s.Milk_id,
+        s.Milk_name, ls.Milk_type_name, s.Weight, s.Price, s.Nutrition_facts, s.Benefits, s.Picture
+        FROM milk_branch hs
+        LEFT OUTER JOIN milk s ON hs.Milk_branch_id=s.Milk_branch_id
+        LEFT OUTER JOIN milk_type ls ON s.Milk_type_id=ls.Milk_type_id
+    </select>
+
+    <select id="findMilkBranchByMilkBranchId" resultMap="milkBranchResultMap">
+        SELECT hs.Milk_branch_id, hs.Milk_branch_name, hs.Address, hs.Phone, hs.Email,
+        s.Milk_id,
+        s.Milk_name, ls.Milk_type_name, s.Weight, s.Price, s.Nutrition_facts, s.Benefits, s.Picture
+        FROM milk_branch hs
+        LEFT OUTER JOIN milk s ON hs.Milk_branch_id=s.Milk_branch_id
+        LEFT OUTER JOIN milk_type ls ON s.Milk_type_id=ls.Milk_type_id
+        WHERE hs.Milk_branch_id = #{milkBranchId}
+<!--        LIMIT 1-->
+    </select>
+
+    <select id="searchMilkBranchByMilkBranchName" resultMap="milkBranchResultMap">
+        SELECT hs.Milk_branch_id, hs.Milk_branch_name, hs.Address, hs.Phone, hs.Email,
+        s.Milk_id,
+        s.Milk_name, ls.Milk_type_name, s.Weight, s.Price, s.Nutrition_facts, s.Benefits, s.Picture
+        FROM milk_branch hs
+        LEFT OUTER JOIN milk s ON hs.Milk_branch_id=s.Milk_branch_id
+        LEFT OUTER JOIN milk_type ls ON s.Milk_type_id=ls.Milk_type_id
+        WHERE hs.Milk_branch_name LIKE '%' #{milkBranchName} '%'
+    </select>
+
+    <insert id="createMilkBranch" parameterType="MilkBranch">
+        INSERT INTO milk_branch (Milk_branch_id, Milk_branch_name, Address, Phone, Email)
+        VALUES (#{milkBranchId}, #{milkBranchName}, #{address}, #{phone}, #{email})
+    </insert>
+
+    <update id="updateMilkBranch" parameterType="MilkBranch">
+        UPDATE milk_branch
+        SET Milk_branch_name = #{milkBranchName},
+        Address = #{address},
+        Phone = #{phone},
+        Email = #{email}
+        WHERE Milk_branch_id = #{milkBranchId}
+    </update>
+
+    <delete id="deleteMilkBranch" parameterType="MilkBranch">
+        DELETE FROM milk_branch
+        WHERE Milk_branch_id = #{Milk_branch_id,jdbcType=CHAR}
+    </delete>
+
+</mapper>

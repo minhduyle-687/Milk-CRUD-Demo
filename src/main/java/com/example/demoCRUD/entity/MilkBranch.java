@@ -10,13 +10,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class HangSua {
+public class MilkBranch {
     @NotEmpty(message = "maHangSua cannot be null")
-    private String maHangSua;
+    private String milkBranchId;
     @NotEmpty(message = "maHangSua cannot be null")
-    private String tenHangSua;
-    private String diaChi;
-    private String dienThoai;
+    private String milkBranchName;
+    private String address;
+    private String phone;
     private String email;
-    private List<Sua> suas;
+    private List<Milk> milks;
 }

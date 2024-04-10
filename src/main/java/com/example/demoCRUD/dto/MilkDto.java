@@ -1,7 +1,5 @@
 package com.example.demoCRUD.dto;
 
-import com.example.demoCRUD.entity.HangSua;
-import com.example.demoCRUD.entity.LoaiSua;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -11,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SuaDto {
+public class MilkDto {
     @NotEmpty
     private String maSua;
     @NotEmpty

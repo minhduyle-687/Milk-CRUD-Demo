@@ -1,6 +1,5 @@
 package com.example.demoCRUD.entity;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -10,10 +9,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LoaiSua {
+public class MilkType {
     @NotEmpty
-    private String maLoaiSua;
+    private String milkTypeId;
     @NotEmpty
-    private String tenLoaiSua;
-    private List<Sua> suas;
+    private String milkTypeName;
+    private List<Milk> milks;
 }
